@@ -18,7 +18,7 @@ df = pd.DataFrame(data)
 # print(f"{'---------' * 3}")
 # print(df.mean())
 # print(f"{'---------' * 3}")
-print(df.loc[1, "salary"])
+# print(df.loc[1, "salary"])
 
 
 # print(df[df["salary"] > 80000]) 
