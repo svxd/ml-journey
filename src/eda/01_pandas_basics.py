@@ -18,12 +18,12 @@ df = pd.DataFrame(data)
 # print(f"{'---------' * 3}")
 # print(df.mean())
 # print(f"{'---------' * 3}")
-# print(df.loc[1, "salary"])
+print(df.loc[1, "salary"])
 
 
-print(df[df["salary"] > 80000]) 
-print(df[(df["age"] > 35) & (df["experience"] >= 10)])
+# print(df[df["salary"] > 80000]) 
+# print(df[(df["age"] > 35) & (df["experience"] >= 10)])
 
-print(df.sort_values("salary", ascending=False))
+# print(df.sort_values("salary", ascending=False))
 
 
