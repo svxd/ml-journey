@@ -1,10 +1,27 @@
+# Python
 .venv/
 __pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Jupyter
 .ipynb_checkpoints/
+notebooks/__marimo__/
+
+# macOS
 .DS_Store
+**/.DS_Store
+
+# IDE
+.idea/
+.vscode
+
+# Local notes
+todo.md
+
+# Data
 data/raw/*
 !data/raw/.gitkeep
+
 data/processed/*
 !data/processed/.gitkeep
-notebooks/__marimo__/
-todo.md
