@@ -1,11 +1,12 @@
 import pandas as pd
-import numpy as np
 
-df = pd.DataFrame({
-    "age": [25, None, None, 30],
-    "salary": [50000, 60000, None, 70000],
-    "department": ["IT", "HR", "IT", None]
-})
+df = pd.DataFrame(
+    {
+        "age": [25, None, None, 30],
+        "salary": [50000, 60000, None, 70000],
+        "department": ["IT", "HR", "IT", None],
+    }
+)
 
 
 # A
@@ -22,23 +23,6 @@ print(df)
 
 # D
 # print(df["department"].value_counts())
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # print

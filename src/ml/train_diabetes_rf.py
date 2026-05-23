@@ -9,7 +9,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 MODEL_DIR = PROJECT_ROOT / "models"
 MODEL_PATH = MODEL_DIR / "diabetes_rf_pipeline.joblib"
@@ -17,16 +16,21 @@ MODEL_PATH = MODEL_DIR / "diabetes_rf_pipeline.joblib"
 
 def build_model() -> Pipeline:
     """Build RandomForest regression pipeline."""
-    return Pipeline(steps=[
-        ("imputer", SimpleImputer(strategy="median")),
-        ("scaler", StandardScaler()),
-        ("model", RandomForestRegressor(
-            n_estimators=100,
-            max_depth=5,
-            min_samples_leaf=2,
-            random_state=42,
-        )),
-    ])
+    return Pipeline(
+        steps=[
+            ("imputer", SimpleImputer(strategy="median")),
+            ("scaler", StandardScaler()),
+            (
+                "model",
+                RandomForestRegressor(
+                    n_estimators=100,
+                    max_depth=5,
+                    min_samples_leaf=2,
+                    random_state=42,
+                ),
+            ),
+        ]
+    )
 
 
 def load_data():

@@ -4,7 +4,7 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 
-# Jupyter
+# Jupyter / Marimo
 .ipynb_checkpoints/
 notebooks/__marimo__/
 
@@ -14,7 +14,7 @@ notebooks/__marimo__/
 
 # IDE
 .idea/
-.vscode
+.vscode/
 
 # Local notes
 todo.md
