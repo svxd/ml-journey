@@ -11,3 +11,16 @@ RANDOM_STATE = 42
 RF_N_ESTIMATORS = 100
 RF_MAX_DEPTH = 5
 RF_MIN_SAMPLES_LEAF = 2
+
+FEATURE_COLUMNS = [
+    "age",
+    "sex",
+    "bmi",
+    "bp",
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+]
