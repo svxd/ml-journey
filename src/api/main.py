@@ -1,5 +1,5 @@
 import pandas as pd
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 from src.ml.config import FEATURE_COLUMNS
@@ -25,14 +25,21 @@ class PredictionResponse(BaseModel):
 
 app = FastAPI(title="Diabetes ML API")
 
-model = load_model()
+
+try:
+    model = load_model()
+    model_error = None
+except FileNotFoundError as exc:
+    model = None
+    model_error = str(exc)
 
 
 @app.get("/health")
 def health() -> dict:
     return {
-        "status": "ok",
+        "status": "ok" if model is not None else "degraded",
         "model_loaded": model is not None,
+        "model_error": model_error,
     }
 
 
@@ -41,9 +48,19 @@ def build_input_dataframe(payload: DiabetesFeatures) -> pd.DataFrame:
     return row[FEATURE_COLUMNS]
 
 
+def get_model():
+    if model is None:
+        raise HTTPException(
+            status_code=503,
+            detail=model_error or "Model is not loaded.",
+        )
+
+    return model
+
+
 @app.post("/predict", response_model=PredictionResponse)
 def predict(payload: DiabetesFeatures) -> PredictionResponse:
     row = build_input_dataframe(payload)
-    prediction = predict_one(model, row)
+    prediction = predict_one(get_model(), row)
 
     return PredictionResponse(prediction=prediction)
