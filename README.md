@@ -47,9 +47,77 @@ ml-journey/
 ├── data/
 │   ├── raw/
 │   └── processed/
+├── models/
+│   └── diabetes_rf_pipeline.joblib
 ├── notebooks/
 ├── src/
-│   └── eda/
-├── README.md
+│   ├── api/
+│   │   └── main.py
+│   └── ml/
+│       ├── config.py
+│       ├── data.py
+│       ├── evaluation.py
+│       ├── inference.py
+│       ├── modeling.py
+│       ├── predict_diabetes_rf.py
+│       └── train_diabetes_rf.py
+├── tests/
+│   └── test_api.py
+├── Dockerfile
+├── .dockerignore
+├── .pre-commit-config.yaml
+├── pyproject.toml
 ├── requirements.txt
-└── .gitignore
+├── requirements-dev.txt
+└── README.md
+```
+
+## Run ML API with Docker
+
+Build Docker image:
+
+```bash
+docker build -t diabetes-ml-api .
+```
+
+Run container:
+
+```bash
+docker run -p 8000:8000 diabetes-ml-api
+```
+
+Open health endpoint:
+
+```text
+http://127.0.0.1:8000/health
+```
+
+Open API docs:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+Example prediction payload:
+
+```json
+{
+  "age": 0.0,
+  "sex": 0.0,
+  "bmi": 0.0,
+  "bp": 0.0,
+  "s1": 0.0,
+  "s2": 0.0,
+  "s3": 0.0,
+  "s4": 0.0,
+  "s5": 0.0,
+  "s6": 0.0
+}
+```
+
+Stop container:
+
+```bash
+docker ps
+docker stop <container_id>
+```
