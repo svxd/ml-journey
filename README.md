@@ -11,7 +11,23 @@
 
 ## Цель
 
-Выйти на собеседования как сильный стажёр / junior ML engineer или Data Scientist.
+Собрать учебный, но приближенный к реальной разработке ML-проект: от анализа данных и обучения модели до сохранения pipeline, inference API, тестов и Docker-упаковки.
+
+Долгосрочная цель — выйти на уровень strong intern / junior специалиста в направлении Python + Data + ML Engineering.
+
+## Текущий статус
+
+Сейчас в репозитории реализован первый ML service skeleton на датасете Diabetes:
+
+- обучение `RandomForestRegressor` pipeline;
+- сохранение модели через `joblib`;
+- inference script;
+- FastAPI endpoint `/predict`;
+- healthcheck endpoint `/health`;
+- Pydantic validation;
+- smoke tests через `pytest` и `TestClient`;
+- Dockerfile для запуска API в контейнере;
+- pre-commit hooks через Ruff.
 
 ## Текущий план обучения
 
@@ -52,8 +68,10 @@ ml-journey/
 ├── notebooks/
 ├── src/
 │   ├── api/
+│   │   ├── __init__.py
 │   │   └── main.py
 │   └── ml/
+│       ├── __init__.py
 │       ├── config.py
 │       ├── data.py
 │       ├── evaluation.py
@@ -62,9 +80,11 @@ ml-journey/
 │       ├── predict_diabetes_rf.py
 │       └── train_diabetes_rf.py
 ├── tests/
+│   ├── __init__.py
 │   └── test_api.py
 ├── Dockerfile
 ├── .dockerignore
+├── .gitignore
 ├── .pre-commit-config.yaml
 ├── pyproject.toml
 ├── requirements.txt
@@ -72,9 +92,61 @@ ml-journey/
 └── README.md
 ```
 
-## Run ML API with Docker
+## Local usage
 
-Build Docker image:
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Train model:
+
+```bash
+python -m src.ml.train_diabetes_rf
+```
+
+Run prediction script:
+
+```bash
+python -m src.ml.predict_diabetes_rf
+```
+
+Run API:
+
+```bash
+python -m uvicorn src.api.main:app --reload
+```
+
+Open API docs:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+## Tests
+
+Install development dependencies:
+
+```bash
+pip install -r requirements-dev.txt
+```
+
+Run tests:
+
+```bash
+pytest -q
+```
+
+Run pre-commit checks:
+
+```bash
+pre-commit run --all-files
+```
+
+## Docker usage
+
+Build image:
 
 ```bash
 docker build -t diabetes-ml-api .
